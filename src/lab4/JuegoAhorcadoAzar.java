@@ -6,6 +6,7 @@ package lab4;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,51 +14,38 @@ import java.util.Random;
  */
 
 //EXTIENDE DE JUEGOAHORACADOBASE
-public class JuegoAhorcadoAzar {
-    
+public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
     private String palabraE;
     private StringBuilder progreso;
     private ArrayList<String> palabras;
-    private AdministrarPalabrasSecretas adminPalabras;
     
     
-    
-    public JuegoAhorcadoAzar(){
-      palabraE="";
-      progreso = progreso = new StringBuilder("_".repeat(palabraE.length()));
-      
-      palabras = new ArrayList<>();
-        palabras.add("pie");
-        palabras.add("cupcake");
-        palabras.add("manzana");
-        palabras.add("refresco");
-        palabras.add("dulces");
+    public JuegoAhorcadoAzar() {
+        palabraE = "";
+        progreso = progreso = new StringBuilder("_".repeat(palabraE.length()));
+
+        palabras = new ArrayList<>();
+        palabras.add("Pizza");
+        palabras.add("Cucpake");
+        palabras.add("Story");
+        palabras.add("Love");
+        palabras.add("Progra");
+        AdministrarPalabrasSecretas ad = new AdministrarPalabrasSecretas();
+        palabras.addAll(ad.adminPalabras);
         
-         adminPalabras = new AdministrarPalabrasSecretas();
     }
-    
+
+
      public String obtenerPalabra(){
         Random random = new Random();
         int index = random.nextInt(palabras.size());
         return palabraE = palabras.get(index);
         
-        
-        
     }
     
-     public String seleccionar() {
-        palabraE = adminPalabras.selecccionar(); 
-        progreso = new StringBuilder("_".repeat(palabraE.length())); 
-        return palabraE;
-    }
-
-     
-     
     public char actualizarPalabraActual(char letra){  
-      
-      
-        for (int i = 0; i < palabraE.length(); i++) {
-            if (palabraE.charAt(i) == letra) {
+        for (int indice = 0; indice < palabraE.length(); indice++) {
+            if (palabraE.charAt(indice) == letra) {
                 return letra;
             }
         }
@@ -78,8 +66,7 @@ public class JuegoAhorcadoAzar {
         return progreso.toString();
     }
    
-
-    
-    
-    
+    public void jugar() {
+        super.jugar();
+    }
 }

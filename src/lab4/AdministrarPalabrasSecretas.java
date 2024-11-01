@@ -12,7 +12,7 @@ import java.util.Random;
  * @author Dell
  */
 public class AdministrarPalabrasSecretas {
-    private ArrayList<String> adminPalabras; 
+    public ArrayList<String> adminPalabras; 
     
     public AdministrarPalabrasSecretas(){
     adminPalabras = new ArrayList<>();
@@ -20,8 +20,7 @@ public class AdministrarPalabrasSecretas {
     } 
     
     public boolean agregarNueva(String palabra){
-         
-        if (palabra != null && !palabra.isEmpty()) {
+         if (palabra != null && !palabra.isEmpty()) {
             adminPalabras.add(palabra);
             return true; 
         }
@@ -30,13 +29,11 @@ public class AdministrarPalabrasSecretas {
     
     public String selecccionar(){
         if (adminPalabras.isEmpty()) {
-                return null; 
-            }
-            Random random = new Random();
-            int index = random.nextInt(adminPalabras.size());
-            return adminPalabras.get(index);
+            return null; 
         }
-           
-            
-    
+        Random random = new Random();
+        int index = random.nextInt(adminPalabras.size());
+        return adminPalabras.get(index);
+        
+    }
 }

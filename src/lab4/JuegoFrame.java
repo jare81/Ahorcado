@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 import javax.swing.border.LineBorder;
 
 public class JuegoFrame extends JFrame {
@@ -80,7 +79,7 @@ public class JuegoFrame extends JFrame {
     };
 
     public JuegoFrame(String palabraSecreta) {
-        this.palabraSecreta = palabraSecreta;
+        this.palabraSecreta = palabraSecreta.toLowerCase();
         this.progreso = new StringBuilder("_".repeat(palabraSecreta.length()));
         this.intentosRestantes = 6; 
         

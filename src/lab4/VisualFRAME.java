@@ -4,17 +4,17 @@
  */
 package lab4;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
@@ -26,8 +26,6 @@ public class VisualFRAME extends JFrame {
     private String palabraIngresada;
     private JLabel labelPalabra;
     private JuegoAhorcadoFijo juegoFijo;
-     private JList<String> palabrasList;
-    private AdministrarPalabrasSecretas adminPalabras;
 
 
 
@@ -42,9 +40,6 @@ public class VisualFRAME extends JFrame {
         JButton azar = new JButton("Jugar con palabras al azar");
         JButton fijas = new JButton("Jugar con palabras fijas");
         JButton admin = new JButton("Administrar palabras secretas");
-        
-        
-        
 
         azar.addActionListener(new ActionListener() {
             @Override
@@ -53,7 +48,6 @@ public class VisualFRAME extends JFrame {
             }
         });
         azar.addActionListener(new ActionListener() {
-            
             public void actionPerformed(ActionEvent e) {
                     JFrame gameFrame = new JFrame("Juego Ahorcado");
                     gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,76 +63,12 @@ public class VisualFRAME extends JFrame {
             }
         });
 
-        
-        
-        
-                admin.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+        admin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-                JFrame frame = new JFrame("Administrar");
-                frame.setSize(300, 300);
-                frame.setLocationRelativeTo(null);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLayout(null);
-
-                JButton seleccionarButton = new JButton("Seleccionar");
-                seleccionarButton.setBounds(50, 30, 200, 30); 
-
-                JButton agregarButton = new JButton("Agregar");
-                agregarButton.setBounds(50, 70, 200, 30);
-                
-                JButton volverButton = new JButton("Volver");
-                volverButton.setBounds(50, 110, 200, 30); 
-
-
-                seleccionarButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Lógica al hacer clic en "Seleccionar"
-                  
-                
-                
-                
-                    }
-                    
-                    
-                    
-                    
-                });
-
-
-            agregarButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Lógica al hacer clic en "Agregar"
-                    JOptionPane.showMessageDialog(frame, "Agregar clickeado!");
-                    
-                    
-                }
-            });
-        
-        
-             volverButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        frame.dispose(); // Cierra el mini frame al hacer clic en "Volver"
-                    }
-                });
-
-
-            frame.add(seleccionarButton);
-            frame.add(agregarButton);
-            frame.add(volverButton);
-
-
-            frame.setVisible(true);
-
-                }
-            });
-                
-                
-                
+            }
+        });
 
         fijas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -146,13 +76,6 @@ public class VisualFRAME extends JFrame {
 
                 if (palabraIngresada != null && !palabraIngresada.trim().isEmpty()) {
                     juegoFijo = new JuegoAhorcadoFijo(palabraIngresada);
-
-                    JFrame gameFrame = new JFrame("Juego Ahorcado");
-                    gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    gameFrame.setSize(400, 300);
-                    gameFrame.setLocationRelativeTo(null);
-                    gameFrame.dispose();
-
 
                     new JuegoFrame(palabraIngresada).setVisible(true);
 
@@ -162,7 +85,69 @@ public class VisualFRAME extends JFrame {
                 }
             }
         });
+        admin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
+                JFrame adminFrame = new JFrame("Ingresar o Escoger palabras");
+                adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                adminFrame.setSize(400, 300);
+                adminFrame.setLocationRelativeTo(null);
+
+                JButton agregar = new JButton("Agregar Palabra");
+                JButton escoger = new JButton("Escoger Palabra");
+                JButton volver = new JButton("Volver");
+                
+                agregar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        JTextField textField = new JTextField(20);
+
+
+                        int option = JOptionPane.showConfirmDialog(null, textField, "Ingrese Palabra", JOptionPane.OK_CANCEL_OPTION);
+
+                        if (option == JOptionPane.OK_OPTION) {
+
+                            String input = textField.getText();
+                            AdministrarPalabrasSecretas ad = new AdministrarPalabrasSecretas();
+                            ad.agregarNueva(input);
+                            adminFrame.setVisible(false);
+                            VisualFRAME.this.setVisible(true);
+                            
+                            
+                            System.out.println("Palabra ingresada: " + input);                         
+                        } else {
+                            System.out.println("Operación cancelada");
+                        }
+                    }
+                });
+
+                escoger.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        System.out.println("Escoger Palabra button clicked");
+                        
+                    }
+                });
+
+
+                adminFrame.setLayout(new BoxLayout(adminFrame.getContentPane(), BoxLayout.Y_AXIS));
+
+
+                adminFrame.add(agregar);
+                adminFrame.add(escoger);
+                adminFrame.add(volver);
+
+
+                agregar.setAlignmentX(Component.CENTER_ALIGNMENT);
+                escoger.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+                adminFrame.setVisible(true);
+
+                VisualFRAME.this.setVisible(false);
+            }
+        });
+        
         admin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -173,11 +158,13 @@ public class VisualFRAME extends JFrame {
         panel.add(azar);
         panel.add(fijas);
         panel.add(admin);
+        JButton volverButton = new JButton("Volver");
+                volverButton.setBounds(50, 110, 200, 30);
 
         add(panel);
+        
+        
     }
-    
-    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
