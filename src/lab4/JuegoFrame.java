@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.border.LineBorder;
 
 public class JuegoFrame extends JFrame {
@@ -95,10 +97,27 @@ public class JuegoFrame extends JFrame {
 
         campoLetra = new JTextField(70);
         campoLetra.setFont(new Font("Arial", Font.PLAIN, 24)); 
-
         campoLetra.setBorder(new LineBorder(Color.BLACK, 2)); 
-        panelSuperior.add(campoLetra);
+        campoLetra.setText("Escribe aquí"); 
+
+        campoLetra.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (campoLetra.getText().equals("Escribe aquí")) {
+                    campoLetra.setText(""); 
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (campoLetra.getText().isEmpty()) {
+                    campoLetra.setText("Escribe aquí"); 
+                }
+            }
+        });
         
+        panelSuperior.add(campoLetra);
+
         labelPalabra = new JLabel(progreso.toString());
         labelPalabra.setFont(new Font("Arial", Font.BOLD, 24));
         labelPalabra.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,6 +129,7 @@ public class JuegoFrame extends JFrame {
 
         labelMensaje = new JLabel("");
         labelMensaje.setForeground(Color.RED);
+        labelMensaje.setFont(new Font("Arial", Font.BOLD, 18));
         panelSuperior.add(labelMensaje);
 
 

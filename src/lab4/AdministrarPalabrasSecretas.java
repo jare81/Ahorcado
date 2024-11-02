@@ -12,11 +12,11 @@ import java.util.Random;
  * @author Dell
  */
 public class AdministrarPalabrasSecretas {
-    public ArrayList<String> adminPalabras; 
+
+    public ArrayList<String> adminPalabras;
     
-    public AdministrarPalabrasSecretas(){
-    adminPalabras = new ArrayList<>();
-    
+    public AdministrarPalabrasSecretas() {
+        adminPalabras = new ArrayList<>();
     } 
     
     public boolean agregarNueva(String palabra){
@@ -35,5 +35,9 @@ public class AdministrarPalabrasSecretas {
         int index = random.nextInt(adminPalabras.size());
         return adminPalabras.get(index);
         
+    }
+    
+    public ArrayList<String> obtenerLista() {
+        return new ArrayList<>(adminPalabras);
     }
 }

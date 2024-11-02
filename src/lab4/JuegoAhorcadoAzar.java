@@ -6,62 +6,58 @@ package lab4;
 
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Dell
  */
-
 //EXTIENDE DE JUEGOAHORACADOBASE
 public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
+
+    private AdministrarPalabrasSecretas ad; 
     private String palabraE;
     private StringBuilder progreso;
-    private ArrayList<String> palabras;
-    
-    
-    public JuegoAhorcadoAzar() {
+
+    public JuegoAhorcadoAzar(AdministrarPalabrasSecretas adminPalabras) {
+        this.ad = adminPalabras; 
         palabraE = "";
-        progreso = progreso = new StringBuilder("_".repeat(palabraE.length()));
+        progreso = new StringBuilder("_".repeat(palabraE.length()));
 
-        palabras = new ArrayList<>();
-        palabras.add("Pizza");
-        palabras.add("Cucpake");
-        palabras.add("Story");
-        palabras.add("Love");
-        palabras.add("Progra");
-        AdministrarPalabrasSecretas ad = new AdministrarPalabrasSecretas();
-        palabras.addAll(ad.adminPalabras);
+          if (ad.adminPalabras.isEmpty()) {
+            ad.adminPalabras.add("cupcake");
+            ad.adminPalabras.add("cake");
+            ad.adminPalabras.add("sugar");
+            ad.adminPalabras.add("red");
+            ad.adminPalabras.add("cinammon");
+        }
+
         
+
     }
-
-
-     public String obtenerPalabra(){
+    public String obtenerPalabra(){
+        ArrayList<String> palabrasActualizadas = ListaPalabras();  
         Random random = new Random();
-        int index = random.nextInt(palabras.size());
-        return palabraE = palabras.get(index);
-        
-    }
-    
-    public char actualizarPalabraActual(char letra){  
+        int index = random.nextInt(palabrasActualizadas.size());
+        return palabraE = palabrasActualizadas.get(index);
+}
+
+    public char actualizarPalabraActual(char letra) {  
         for (int indice = 0; indice < palabraE.length(); indice++) {
             if (palabraE.charAt(indice) == letra) {
                 return letra;
             }
         }
-
         return 0;  
     }
-    
-    public boolean VerificarLetra(char letra){
+
+    public boolean VerificarLetra(char letra) {
         return palabraE.indexOf(letra) != -1;
-        
     }
-    
-    public  boolean Ganador(){
+
+    public boolean Ganador() {
         return progreso.toString().equals(palabraE);
     }
-    
+
     public String obtenerProgreso() {
         return progreso.toString();
     }
@@ -69,4 +65,13 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
     public void jugar() {
         super.jugar();
     }
+    
+    public void setPalabraE(String palabraE){
+        this.palabraE=palabraE;
+    }
+
+     public ArrayList<String> ListaPalabras() {
+        return ad.adminPalabras;
+    }
+    
 }
